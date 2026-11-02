@@ -1,0 +1,3018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ElectroMarket - Buy & Sell Electronics</title>
+
+<style>
+html{
+    scroll-behavior:smooth;
+}
+
+:root{
+    --primary:#2563eb;
+    --primary-dark:#1d4ed8;
+    --success:#10b981;
+    --success-dark:#059669;
+    --dark:#0f172a;
+    --gray:#64748b;
+    --light:#f8fafc;
+    --border:#e2e8f0;
+    --radius:16px;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Inter,Segoe UI,Arial,sans-serif;
+    background:#fff;
+    color:#334155;
+    line-height:1.6;
+}
+
+.container{
+    width:min(1200px,92%);
+    margin:auto;
+}
+
+/* Announcement */
+
+.announcement{
+    background:var(--dark);
+    color:white;
+    text-align:center;
+    padding:.75rem;
+    font-size:.9rem;
+}
+
+/* Header */
+
+header{
+    position:sticky;
+    top:0;
+    background:white;
+    z-index:1000;
+    border-bottom:1px solid var(--border);
+}
+
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:1rem 0;
+}
+
+.logo{
+    font-size:1.5rem;
+    font-weight:800;
+    color:var(--primary);
+}
+
+nav{
+    display:flex;
+    gap:1.5rem;
+}
+
+nav a{
+    text-decoration:none;
+    color:#334155;
+    font-weight:600;
+}
+
+/* Buttons */
+
+.btn{
+    border:none;
+    cursor:pointer;
+    padding:.9rem 1.3rem;
+    border-radius:12px;
+    font-weight:700;
+    transition:.3s;
+}
+
+.btn-primary{
+    background:var(--primary);
+    color:white;
+}
+
+.btn-primary:hover{
+    background:var(--primary-dark);
+}
+
+.btn-sell{
+    background:var(--success);
+    color:white;
+}
+
+.btn-sell:hover{
+    background:var(--success-dark);
+}
+
+.btn-outline{
+    background:white;
+    border:1px solid var(--border);
+}
+
+.popup-btn{
+    display:block;
+
+    width:100%;
+
+    margin-top:24px;
+
+    padding:12px;
+
+    font-size:1rem;
+    font-weight:800;
+
+    border-radius:12px;
+}
+
+
+
+/* Hero */
+
+.hero{
+    background:linear-gradient(135deg,#eff6ff,#ffffff);
+    padding:70px 0;
+}
+
+.hero-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:50px;
+    align-items:center;
+}
+
+.hero h1{
+    font-size:3.4rem;
+    line-height:1.1;
+    color:var(--dark);
+    margin-bottom:20px;
+}
+
+.hero p{
+    font-size:1.1rem;
+    margin-bottom:25px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+/* Hero Graphic */
+
+.hero-visual{
+    height:420px;
+    position:relative;
+}
+
+.device{
+    position:absolute;
+    border-radius:24px;
+    box-shadow:0 25px 50px rgba(0,0,0,.15);
+}
+
+.phone{
+    width:130px;
+    height:260px;
+    right:40px;
+    top:20px;
+    background:#111827;
+}
+
+.phone::before{
+    content:"";
+    position:absolute;
+    inset:12px;
+    border-radius:14px;
+    background:
+    linear-gradient(
+        135deg,
+        #3b82f6,
+        #10b981
+    );
+}
+
+.laptop{
+    width:320px;
+    height:200px;
+    left:20px;
+    top:130px;
+    background:#2563eb;
+}
+
+.laptop::before{
+    content:"";
+    position:absolute;
+    inset:15px;
+    background:white;
+    border-radius:10px;
+}
+
+.headphones{
+    width:160px;
+    height:160px;
+    bottom:10px;
+    right:80px;
+    background:#10b981;
+    border-radius:50%;
+}
+
+/* Sections */
+
+.section{
+    padding:70px 0;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:15px;
+}
+
+.section-title h2{
+    font-size:2rem;
+    color:var(--dark);
+}
+
+/* Categories */
+
+.category-grid{
+    display:flex;
+    gap:24px;
+
+    overflow-x:auto;
+    overflow-y:hidden;
+    padding-bottom:10px;
+
+    scroll-behavior:smooth;
+    scroll-snap-type:x mandatory;
+    cursor:grab;
+
+    position:relative;
+    z-index:1;
+}
+.category-grid:active{
+    cursor:grabbing;
+}
+.category-card{
+    flex:0 0 auto;
+
+    min-height:420px;
+    min-width:320px;
+    max-width:650px;
+
+    padding:12px 16px;
+
+    scroll-snap-align:start;
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease,
+        border-color .3s ease;
+    border:2px solid #e2e8f0;
+    border-radius:16px;
+    background:white;
+}
+
+.category-image{
+    height:360px;
+    width:auto;
+    transition:.3s;
+}
+
+.category-image-wrapper{
+    width:auto;
+    height:360px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    overflow:hidden;
+}
+
+.category-card h3{
+    margin-bottom:2px;
+    font-size:1.2rem;
+}
+
+.category-card p{
+    font-size:.8rem;
+    color:#64748b;
+    margin-top:0;
+}
+
+.category-card:hover{
+    transform:
+        translateY(4px)
+        scale(1.02);
+
+    box-shadow:
+        0 12px 30px
+        rgba(37,99,235,.15);
+
+    border-color:#60a5fa;
+}
+
+.category-card:hover .category-image{
+    transform:scale(1.08);
+}
+
+.category-icon{
+    font-size:3rem;
+    margin-bottom:15px;
+}
+
+.category-grid::-webkit-scrollbar{
+    height:8px;
+}
+
+.category-grid::-webkit-scrollbar-thumb{
+    background:#cbd5e1;
+    border-radius:999px;
+}
+
+.scroll-hint{
+    margin-top:8px;
+
+    color:#64748b;
+
+    font-size:.9rem;
+
+    font-weight:500;
+}
+
+/* Trust */
+
+.trust-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.trust-card{
+    min-height:220px;
+    background:white;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    border:1px solid var(--border);
+    text-align:center;
+    border-radius:16px;
+    padding:30px;
+}
+
+.trust-card p{
+    margin-top:10px;
+    color:#64748b;
+    font-size:.95rem;
+}
+
+.trust-card:hover{
+    transform:translateY(-5px);
+
+    box-shadow:
+        0 8px 20px
+        rgba(37,99,235,.12);
+}
+
+.flash-banner{
+
+    background:#fef2f2;
+
+    border:2px solid #fecaca;
+
+    box-shadow:
+	0 4px 12px rgba(239,68,68,.08);
+
+    color:#b91c1c;
+
+    padding:12px;
+
+    border-radius:10px;
+
+    margin-bottom:35px;
+
+    overflow:hidden;
+
+    font-weight:700;
+
+}
+
+.flash-content{
+
+    display:inline-block;
+
+    white-space:nowrap;
+
+    animation:
+    marqueeMove 15s linear infinite;
+
+}
+
+@keyframes marqueeMove{
+
+    from{
+        transform:
+        translateX(100%);
+    }
+
+    to{
+        transform:
+        translateX(-100%);
+    }
+
+}
+
+.trust-icon{
+    font-size:2rem;
+    margin-bottom:10px;
+}
+
+/* Marketplace */
+
+.marketplace{
+    display:grid;
+    grid-template-columns:280px 1fr;
+    gap:25px;
+    align-items:start;
+}
+
+.filters{
+    background:white;
+    border:1px solid var(--border);
+    padding:20px;
+    border-radius:var(--radius);
+
+    height:fit-content;
+
+    position:sticky;
+    top:90px;
+}
+
+.filters h3{
+    margin-bottom:15px;
+}
+
+.filters input,
+.filters select{
+    width:100%;
+    padding:12px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    margin-bottom:12px;
+}
+
+.filter-label{
+    display:block;
+
+    margin:10px 0 6px;
+
+    font-size:.9rem;
+    font-weight:700;
+
+    color:#334155;
+}
+
+.filter-divider{
+    height:1px;
+
+    background:#e2e8f0;
+
+    margin:15px 0;
+}
+
+.products{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+    gap:20px;
+}
+
+#products{
+    padding-top:0;
+    position:relative;
+    z-index:2;
+}
+
+.card{
+    border-radius:var(--radius);
+    border:2px solid #bfdbfe;
+    background:white;
+    overflow:hidden;
+    transition:.3s;
+}
+
+.card.sale-product{
+
+    border:2px solid #ef4444;
+
+    box-shadow:
+    0 0 12px rgba(239,68,68,.15);
+
+    position:relative;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    border-color:#60a5fa;
+    box-shadow:0 8px 20px rgba(37,99,235,.15);
+}
+
+.card.sale-product:hover{
+    box-shadow:
+        0 10px 25px rgba(239,68,68,.25);
+}
+
+.product-image{
+    position:relative;
+
+    aspect-ratio:1/1;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:linear-gradient(
+      135deg,
+      #dbeafe,
+      #f8fafc
+    );
+
+}
+
+.card-body{
+    padding:12px 16px;
+}
+
+.card-body h3{
+
+    font-size:1rem;
+
+    margin-bottom:8px;
+
+    line-height:1.2;
+
+}
+
+.price{
+    color:var(--primary);
+    font-size:1.15rem;
+    font-weight:800;
+}
+
+.sale-price-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.discount-price{
+    color:#ef4444;
+    font-size:1.25rem;
+    font-weight:800;
+}
+
+.old-price{
+    color:#64748b;
+    opacity:.7;
+
+    text-decoration:line-through;
+
+    font-size:.8rem;
+    font-weight:700;
+}
+
+.discount-badge{
+    position:absolute;
+
+    top:8px;
+    right:8px;
+
+    background:#ef4444;
+
+    color:white;
+
+    font-size:.7rem;
+    font-weight:800;
+
+    padding:4px 8px;
+
+    border-radius:8px;
+
+    transform:rotate(12deg);
+    border:2px solid white;
+
+    box-shadow:
+        0 2px 6px rgba(0,0,0,.2);
+
+    z-index:5;
+}
+
+.product-actions{
+    display:grid;
+
+    grid-template-columns:
+        1fr
+        85px;
+
+    gap:12px;
+
+    align-items:stretch;
+}
+
+.product-meta{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:2px;
+    width:fit-content;
+    min-height:70px;
+}
+
+.meta-badges{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+}
+
+.stock-badge{
+    display:inline-flex;
+    align-items:center;
+
+    padding:2px 8px;
+
+    border-radius:999px;
+
+    background:#fde68a;
+    color:#78350f;
+
+    font-size:.75rem;
+    font-weight:700;
+}
+
+.view-btn{
+    width:100%;
+    height:100%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:12px;
+
+    font-size:1rem;
+    font-weight:800;
+
+    line-height:1.1;
+}
+
+/* Sell */
+
+.sell-section{
+    background:#f8fafc;
+}
+
+.trade-steps{
+    display:flex;
+    gap:20px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-bottom:30px;
+}
+
+.step{
+    background:white;
+    border-radius:12px;
+    padding:15px 20px;
+    border:1px solid var(--border);
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.form-grid input,
+.form-grid select,
+.form-grid textarea{
+    width:100%;
+    padding:12px;
+    border-radius:10px;
+    border:1px solid var(--border);
+}
+
+textarea{
+    min-height:140px;
+}
+
+.full{
+    grid-column:1/-1;
+}
+
+/* Testimonials */
+
+.testimonial-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:20px;
+}
+
+.testimonial{
+    background:#f8fafc;
+    padding:25px;
+    border-radius:var(--radius);
+}
+
+.review-header{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:12px;
+}
+
+.review-avatar{
+    width:45px;
+    height:45px;
+
+    border-radius:50%;
+
+    background:#2563eb;
+    color:white;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-weight:700;
+}
+
+.review-stars{
+    color:#f59e0b;
+    font-size:1.1rem;
+    margin-bottom:10px;
+}
+
+/* FAQ */
+
+.faq{
+    max-width:900px;
+    margin:auto;
+}
+
+details{
+    border:1px solid var(--border);
+    padding:18px;
+    margin-bottom:15px;
+    border-radius:12px;
+    background:white;
+}
+
+details:hover{
+    border-color:#60a5fa;
+}
+
+summary{
+    font-weight:700;
+    cursor:pointer;
+}
+
+/* Footer */
+
+footer{
+    background:var(--dark);
+    color:white;
+    padding:60px 0;
+}
+
+.footer-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:30px;
+}
+
+.footer-grid a{
+    display:block;
+    color:#cbd5e1;
+    text-decoration:none;
+    margin:8px 0;
+
+    transition:.2s;
+}
+.footer-grid a:hover{
+    color:white;
+    transform:translateX(4px);
+}
+
+/* MEMORY GAME */
+
+.memory-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(4,1fr);
+
+gap:15px;
+
+max-width:950px;
+
+margin:auto;
+
+}
+
+.memory-card{
+
+    aspect-ratio:1/1;
+
+    cursor:pointer;
+
+    transform-style:preserve-3d;
+
+    transition:.5s;
+
+}
+
+.memory-card.flipped{
+
+transform:rotateY(180deg);
+
+}
+
+.memory-front,
+.memory-back{
+
+position:absolute;
+
+inset:0;
+
+backface-visibility:hidden;
+
+border-radius:12px;
+
+overflow:hidden;
+
+}
+
+.memory-front{
+
+background:#2563eb;
+
+color:white;
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+font-size:2rem;
+
+font-weight:bold;
+
+}
+
+.memory-back{
+
+    transform:rotateY(180deg);
+
+    background:white;
+
+    border:2px solid #2563eb;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+.product-photo{
+
+    width:100%;
+    height:100%;
+
+    object-fit:contain;
+
+    padding:8px;
+
+    background:white;
+
+}
+
+.product-info-card{
+
+width:100%;
+height:100%;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+align-items:center;
+
+text-align:center;
+
+padding:20px;
+
+}
+
+.product-info-card h3{
+
+    color:#2563eb;
+
+    margin-bottom:10px;
+
+}
+
+.product-info-card p{
+
+    margin-top:8px;
+
+    line-height:1.4;
+
+}
+
+.popup{
+
+position:fixed;
+
+inset:0;
+
+display:none;
+
+justify-content:center;
+
+align-items:center;
+
+background:
+rgba(0,0,0,.7);
+
+z-index:9999;
+
+}
+
+.popup-content{
+
+background:white;
+
+padding:24px;
+
+border-radius:16px;
+
+max-width:500px;
+
+width:90%;
+
+text-align:center;
+
+display:flex;
+flex-direction:column;
+
+}
+
+.popup-content h2{
+
+    text-align:center;
+
+    margin-bottom:12px;
+
+}
+
+.popup-content p{
+
+    text-align:center;
+
+}
+
+.popup-pair{
+
+    display:grid;
+
+    grid-template-columns:
+    1fr 1fr;
+
+    gap:10px;
+
+    margin-bottom:20px;
+
+    align-items:stretch;
+
+}
+
+.popup-preview{
+
+    height:140px;
+
+    border-radius:10px;
+
+    overflow:hidden;
+
+    border:1px solid #e2e8f0;
+
+}
+
+.popup-preview img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:contain;
+
+    padding:6px;
+}
+
+.popup-preview-info{
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    padding:10px;
+
+    background:#f8fafc;
+
+    border-radius:10px;
+
+}
+
+.matched{
+
+    opacity:.5;
+
+    cursor:default;
+
+    pointer-events:none;
+
+    filter:grayscale(20%);
+
+}
+
+@keyframes matchGlow{
+
+    0%{
+
+        box-shadow:
+        0 0 0px
+        rgba(16,185,129,0);
+
+    }
+
+    50%{
+
+        box-shadow:
+        0 0 25px
+        rgba(16,185,129,.9);
+
+    }
+
+    100%{
+
+        box-shadow:
+        0 0 0px
+        rgba(16,185,129,0);
+
+    }
+
+}
+
+.memory-wrapper{
+
+    position:relative;
+
+}
+
+.game-overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+    rgba(255,255,255,.92);
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    padding:30px;
+
+    z-index:10;
+
+    border-radius:16px;
+
+}
+
+.game-overlay h3{
+
+    margin-bottom:10px;
+
+    color:#2563eb;
+
+}
+
+.game-overlay p{
+
+    max-width:400px;
+
+    margin-bottom:20px;
+
+}
+
+@media(max-width:768px){
+
+.memory-grid{
+
+grid-template-columns:
+repeat(2,1fr);
+
+}
+
+}
+
+.win-screen{
+
+    display:none;
+
+    position:fixed;
+
+    top:50%;
+
+    left:50%;
+
+    transform:
+    translate(-50%,-50%);
+
+    z-index:10000;
+
+    width:90%;
+
+    max-width:600px;
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:16px;
+
+    border:1px solid #e2e8f0;
+
+    text-align:center;
+
+}
+
+.medal{
+
+    font-size:4rem;
+
+    margin-bottom:15px;
+
+}
+
+.win-screen h2{
+
+    margin-bottom:12px;
+
+}
+
+.win-screen p{
+
+    margin-bottom:20px;
+
+}
+
+.play-again{
+
+    display:inline-block;
+
+    border:none;
+
+    background:#10b981;
+
+    color:white;
+
+    padding:12px 25px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-weight:700;
+
+    font-size:1rem;
+
+}
+
+.play-again:hover{
+
+    background:#059669;
+
+}
+
+/* ========================= */
+/* HOT DEAL POPUP */
+/* ========================= */
+
+.deal-popup{
+    position:fixed;
+    bottom:30px;
+    right:30px;
+    width:240px;
+    z-index:10001;
+    min-height:140px;
+
+    padding:12px 16px;
+
+    background:white;
+    border:2px solid black;
+    border-radius:16px;
+
+    overflow:visible;
+    animation:
+        popIn .4s ease,
+        dealFloat 2s infinite;
+}
+
+.deal-popup-content{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.deal-info{
+    flex:1;
+}
+.deal-popup .btn{
+    display:block;
+    width:fit-content;
+    margin:0 auto;
+
+    padding:8px 18px;
+    font-size:.9rem;
+}
+.deal-close{
+    position:absolute;
+    top:6px;
+    right:8px;
+
+    width:22px;
+    height:22px;
+
+    border:none;
+    background:none;
+
+    font-size:.85rem;
+    font-weight:700;
+
+    color:#94a3b8;
+    cursor:pointer;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+}
+
+.deal-close:hover{
+    background:#f1f5f9;
+    color:#ef4444;
+}
+
+.deal-star{
+    width:80px;
+    height:80px;
+
+    background:#ef4444;
+
+    position:absolute;
+    top:0;
+    left:0;
+
+    transform:rotate(-18deg);
+
+    clip-path:polygon(
+        50% 0%,
+        61% 20%,
+        82% 12%,
+        75% 35%,
+        100% 50%,
+        75% 65%,
+        82% 88%,
+        61% 80%,
+        50% 100%,
+        39% 80%,
+        18% 88%,
+        25% 65%,
+        0% 50%,
+        25% 35%,
+        18% 12%,
+        39% 20%
+    );
+}
+
+.deal-badge{
+    position:absolute;
+
+    top:-25px;
+    left:-40px;
+
+    width:80px;
+    height:80px;
+}
+
+.deal-star-text{
+    position:absolute;
+
+    top:49%;
+    left:50%;
+
+    transform:
+        translate(-50%,-50%)
+        rotate(-18deg);
+
+    z-index:2;
+
+    font-size:1.15rem;
+    font-weight:900;
+
+    line-height:0.85em;
+
+    text-align:center;
+
+    color:white;
+
+    letter-spacing:0;
+
+    text-shadow:
+        -1px -1px 0 #000,
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000;
+}
+
+#dealCountdown{
+    text-align:center;
+    font-size:1rem;
+    font-weight:900;
+    color:#dc2626;
+    margin:8px 0;
+    padding:6px;
+    background:linear-gradient(
+        90deg,
+        #fef2f2,
+        #fff7ed
+    );
+    border:2px solid #fecaca;
+    border-radius:12px;
+    line-height:1.4;
+}
+
+#dealCountdown strong{
+    font-size:1.2rem;
+    color:#b91c1c;
+}
+
+.deal-pricing{
+    text-align:center;
+    margin:15px 0;
+}
+
+.deal-old-price{
+    color:#94a3b8;
+    font-size:.65rem;
+    opacity:.5;
+    margin-top:2px;
+    position:static;
+    transform:none;
+}
+
+.deal-now{
+    color:#16a34a;
+    font-size:.85rem;
+    font-weight:700;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    margin-bottom:4px;
+}
+
+.deal-price{
+    display:inline-block;
+    font-size:2.2rem;
+    font-weight:900;
+    color:#16a34a;
+    background:#dcfce7;
+    padding:4px 10px;
+    border-radius:14px;
+    border:2px solid #86efac;
+}
+
+.deal-title{
+    margin-top:8px;
+    margin-bottom:6px;
+
+    text-align:right;
+    padding-right:10px;
+
+    font-size:1.3rem;
+    font-weight:900;
+
+    color:#2563eb;
+
+    text-transform:uppercase;
+    letter-spacing:.5px;
+
+    text-shadow:
+        0 1px 2px rgba(37,99,235,.15);
+}
+
+@keyframes popIn{
+
+    from{
+
+        opacity:0;
+
+        transform:
+        translateY(20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+        translateY(0);
+
+    }
+
+}
+
+@keyframes dealFloat{
+
+    0%{
+        transform:
+        translateY(0);
+    }
+
+    50%{
+        transform:
+        translateY(-5px);
+    }
+
+    100%{
+        transform:
+        translateY(0);
+    }
+
+}
+
+.condition-rating{
+    display:inline-flex;
+    align-items:center;
+
+    color:#f59e0b;
+    font-size:1rem;
+    font-weight:700;
+    letter-spacing:-0.5px;
+}
+
+/* Responsive */
+
+@media(max-width:900px){
+
+.hero-grid{
+    grid-template-columns:1fr;
+}
+
+.marketplace{
+    grid-template-columns:1fr;
+}
+
+.hero h1{
+    font-size:2.4rem;
+}
+
+.hero-visual{
+    height:280px;
+}
+
+.form-grid{
+    grid-template-columns:1fr;
+}
+
+nav{
+    display:none;
+}
+
+.category-image{
+    height:220px;
+}
+
+.category-image-wrapper{
+    height:220px;
+}
+}
+</style>
+</head>
+<body id="top">
+
+<div class="announcement">
+🚚 Free Shipping • 🔒 Secure Payments • 🛡 Warranty Included • ♻ Trade-In Available
+</div>
+
+<header>
+<div class="container navbar">
+
+<a href="#top" class="logo">
+    ⚡ ElectroMarket
+</a>
+
+<nav>
+<a href="#top">Home</a>
+<a href="#categories">Categories</a>
+<a href="#products">Products</a>
+<a href="#sell">Sell Device</a>
+<a href="#faq">FAQ</a>
+</nav>
+
+</div>
+</header>
+
+<section class="hero">
+<div class="container hero-grid">
+
+<div>
+<h1>Buy Smart. Sell Fast. Upgrade Easier.</h1>
+
+<p>
+Shop certified electronics or sell your used devices
+through a trusted marketplace.
+</p>
+
+<div class="hero-buttons">
+<button
+class="btn btn-primary"
+onclick="
+document
+.getElementById('products')
+.scrollIntoView({
+    behavior:'smooth'
+});
+">
+    Shop Electronics
+</button>
+<button
+class="btn btn-sell"
+onclick="
+document
+.getElementById('sell')
+.scrollIntoView({
+    behavior:'smooth'
+});
+">
+    Sell Your Device
+</button>
+</div>
+</div>
+
+<div class="hero-visual">
+<div class="device phone"></div>
+<div class="device laptop"></div>
+<div class="device headphones"></div>
+</div>
+
+</div>
+</section>
+
+<section id="categories" class="section">
+<div class="container">
+
+<div class="section-title">
+<h2>Popular Categories</h2>
+<p class="scroll-hint">
+    ← Swipe or scroll to browse categories →
+</p>
+</div>
+
+<div class="category-grid">
+
+<div class="category-card">
+
+    <div class="category-image-wrapper">
+
+        <img
+        src="images/categories/phones.png"
+        class="category-image">
+
+    </div>
+
+    <h3>Phones</h3>
+
+    <p>
+        New, refurbished and
+        flagship smartphones.
+    </p>
+
+</div>
+
+<div class="category-card">
+
+    <div class="category-image-wrapper">
+
+        <img
+        src="images/categories/laptops.png"
+        class="category-image">
+
+    </div>
+
+    <h3>Laptops</h3>
+
+    <p>
+        Powerful MacBooks, gaming
+        rigs and productivity notebooks.
+    </p>
+
+</div>
+
+<div class="category-card">
+
+    <div class="category-image-wrapper">
+        <img
+        src="images/categories/gaming.png"
+        class="category-image">
+    </div>
+    <h3>Gaming</h3>
+    <p>
+        Consoles, handheld systems
+        and gaming accessories.
+    </p>
+
+</div>
+
+<div class="category-card">
+    <div class="category-image-wrapper">
+    <img
+    src="images/categories/audio.png"
+    class="category-image">
+    </div>
+    <h3>Audio</h3>
+
+    <p>
+        Premium headphones,
+        earbuds and speakers.
+    </p>
+
+</div>
+
+<div class="category-card">
+    <div class="category-image-wrapper">
+    <img
+    src="images/categories/watch.png"
+    class="category-image">
+    </div>
+    <h3>Wearables</h3>
+
+    <p>
+        Smartwatches and fitness
+        tracking devices.
+    </p>
+
+</div>
+
+</div>
+
+</div>
+</section>
+
+<section class="section" style="background:#f8fafc">
+<div class="container">
+
+<div class="section-title">
+<h2>Why Customers Trust Us</h2>
+</div>
+
+<div class="trust-grid">
+
+<div class="trust-card">
+
+    <div class="trust-icon">🛡</div>
+
+    <h3>Warranty Included</h3>
+
+    <p>
+        30-day protection on
+        eligible products.
+    </p>
+
+</div>
+
+<div class="trust-card">
+
+    <div class="trust-icon">🔒</div>
+
+    <h3>Secure Checkout</h3>
+
+    <p>
+        Protected payments and
+        encrypted transactions for
+        peace of mind.
+    </p>
+
+</div>
+
+<div class="trust-card">
+
+    <div class="trust-icon">✅</div>
+
+    <h3>Verified Sellers</h3>
+
+    <p>
+        Accounts are reviewed
+        before listings become
+        available.
+    </p>
+
+</div>
+
+<div class="trust-card">
+
+    <div class="trust-icon">↩</div>
+
+    <h3>Easy Returns</h3>
+
+    <p>
+        Straightforward return
+        process for eligible
+        purchases.
+    </p>
+
+</div>
+
+</div>
+
+</div>
+</section>
+
+<section id="products" class="section">
+<div class="container">
+
+<div class="section-title">
+<h2>Browse Electronics</h2>
+</div>
+
+<div class="flash-banner">
+
+    <div class="flash-content">
+
+        ⚡ FLASH SALE •
+        iPhone 16 Pro 16% OFF •
+        Apple Watch Ultra 17% OFF •
+        PlayStation 5 11% OFF •
+        LIMITED TIME OFFER •
+
+    </div>
+
+</div>
+
+<div class="marketplace">
+
+<div class="filters">
+
+<h3>Filters</h3>
+
+<input
+id="search"
+oninput="renderProducts()"
+placeholder="Search products">
+
+<select
+id="categoryFilter"
+onchange="renderProducts()">
+<option value="">All Categories</option>
+<option>Smartphones</option>
+<option>Laptops</option>
+<option>Gaming</option>
+<option>Audio</option>
+<option>Wearables</option>
+<option>Other</option>
+</select>
+
+<select
+id="ratingFilter"
+onchange="renderProducts()">
+<option value="">All Ratings</option>
+<option value="5">★★★★★</option>
+<option value="4">★★★★☆</option>
+<option value="3">★★★☆☆</option>
+</select>
+
+<input
+type="number"
+id="maxPrice"
+oninput="renderProducts()"
+placeholder="Max Price">
+
+<div class="filter-divider"></div>
+
+<label class="filter-label">
+    Sort By
+</label>
+
+<select
+id="sortFilter"
+onchange="renderProducts()">
+    <option value="">Default Order</option>
+    <option value="priceLow">Price: Low to High</option>
+    <option value="priceHigh">Price: High to Low</option>
+    <option value="ratingHigh">Rating: Highest First</option>
+    <option value="sale">Sale Items First</option>
+    <option value="name">Name: A to Z</option>
+</select>
+
+</div>
+
+<div id="productGrid" class="products"></div>
+
+</div>
+
+</div>
+</section>
+
+<section
+id="memory-game"
+class="section"
+style="background:#f8fafc;">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+🧠 Discover Tech Memory Challenge
+</h2>
+
+<p>
+Match products with their key benefits and
+discover new technology.
+</p>
+
+</div>
+
+<div style="text-align:center;">
+
+<h3 id="score">
+Pairs Found: 0 / 8
+</h3>
+
+<h3 id="timer">
+Time: 0s
+</h3>
+
+<p
+style="
+font-size:.9rem;
+color:#64748b;
+">
+
+🥇 Gold ≤ 34s
+
+•
+
+🥈 Silver ≤ 47s
+
+•
+
+🥉 Bronze ≤ 60s
+
+</p>
+
+</div>
+
+<br>
+
+<div class="memory-wrapper">
+
+    <div
+    id="gameOverlay"
+    class="game-overlay">
+
+        <h3>
+        Ready to discover new tech?
+        </h3>
+
+        <p>
+        Match product photos with their
+        descriptions to learn about featured
+        electronics.
+        </p>
+
+        <button
+        class="btn btn-primary"
+        onclick="startGame()">
+
+            Start Challenge
+
+        </button>
+
+    </div>
+
+    <div
+    id="grid"
+    class="memory-grid">
+    </div>
+
+</div>
+
+<div
+id="winScreen"
+class="win-screen">
+</div>
+
+</div>
+
+</section>
+
+<section id="sell" class="section sell-section">
+
+<div class="container">
+
+<div class="section-title">
+<h2>Sell Your Device</h2>
+<p>Trade in electronics in 3 easy steps.</p>
+</div>
+
+<div class="trade-steps">
+<div class="step">1️⃣ Describe Device</div>
+<div class="step">2️⃣ Ship Free</div>
+<div class="step">3️⃣ Get Paid</div>
+</div>
+
+<form id="sellForm" class="form-grid">
+
+<input type="text" placeholder="Product Title" required>
+
+<select required>
+<option>Category</option>
+<option>Smartphones</option>
+<option>Laptops</option>
+<option>Gaming</option>
+<option>Audio</option>
+</select>
+
+<input type="text" placeholder="Brand">
+
+<input type="number" placeholder="Price">
+
+<select>
+<option>Condition</option>
+<option>New</option>
+<option>Like New</option>
+<option>Excellent</option>
+<option>Good</option>
+</select>
+
+<input type="file" class="full">
+
+<textarea
+class="full"
+placeholder="Description"></textarea>
+
+<button class="btn btn-sell full">
+List Item
+</button>
+
+</form>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<div class="container">
+
+<div class="section-title">
+<h2>Customer Reviews</h2>
+</div>
+
+<div class="testimonial-grid">
+
+<div class="testimonial">
+
+    <div class="review-header">
+
+        <div class="review-avatar">
+            J
+        </div>
+
+        <div>
+            <strong>James T.</strong>
+            <div class="review-date">
+                Verified Seller
+            </div>
+        </div>
+
+    </div>
+
+    <div class="review-stars">
+        ★★★★★
+    </div>
+
+    <p>
+        Sold my gaming laptop in two days and
+        received payment immediately after
+        inspection.
+    </p>
+
+</div>
+
+<div class="testimonial">
+
+    <div class="review-header">
+
+        <div class="review-avatar">
+            S
+        </div>
+
+        <div>
+            <strong>Sarah L.</strong><br>
+            <small>Verified Buyer</small>
+        </div>
+
+    </div>
+
+    <div class="review-stars">
+        ★★★★★
+    </div>
+
+    <p>
+        Purchased a refurbished iPhone and it
+        looked practically brand new. Battery life
+        and condition matched the description perfectly.
+    </p>
+
+</div>
+
+<div class="testimonial">
+
+    <div class="review-header">
+
+        <div class="review-avatar">
+            M
+        </div>
+
+        <div>
+            <strong>Michael R.</strong><br>
+            <small>Verified Buyer</small>
+        </div>
+
+    </div>
+
+    <div class="review-stars">
+        ★★★★★
+    </div>
+
+    <p>
+        The filtering system and product details
+        made it easy to compare devices before
+        making a purchase.
+    </p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="faq" class="section" style="background:#f8fafc">
+
+<div class="container faq">
+
+<div class="section-title">
+<h2>Frequently Asked Questions</h2>
+</div>
+
+<details>
+<summary>How does selling work?</summary>
+<p>Submit your device information, ship it, and receive payment after inspection.</p>
+</details>
+
+<details>
+<summary>Are items covered by warranty?</summary>
+<p>Example marketplace warranty coverage may apply to eligible products.</p>
+</details>
+
+<details>
+<summary>How are devices graded?</summary>
+<p>Products are inspected and assigned a condition rating before listing.</p>
+</details>
+
+<details>
+<summary>How long does a trade-in take?</summary>
+<p>
+Most trade-ins are reviewed within 1–3 business
+days after the device arrives.
+</p>
+</details>
+
+<details>
+<summary>Can I return a purchased device?</summary>
+<p>
+Eligible products may be returned within the
+applicable return period if they meet return
+requirements.
+</p>
+</details>
+
+<details>
+<summary>Are payments secure?</summary>
+<p>
+All transactions are processed through secure,
+encrypted payment channels.
+</p>
+</details>
+
+</div>
+
+</section>
+
+<footer>
+<div class="container footer-grid">
+
+<div>
+<h3>ElectroMarket</h3>
+<p>Buy and sell electronics with confidence.</p>
+</div>
+
+<div>
+<h4>Shop</h4>
+<a href="#categories">Phones</a>
+<a href="#categories">Laptops</a>
+<a href="#categories">Gaming</a>
+</div>
+
+<div>
+<h4>Sell</h4>
+<a href="#sell">Trade-In</a>
+<a href="#sell">Get Quote</a>
+</div>
+
+<div>
+<h4>Support</h4>
+<a href="#faq">Returns</a>
+<a href="#faq">FAQ</a>
+<a href="mailto:support@electromarket.demo">Contact</a>
+</div>
+
+</div>
+</footer>
+
+<div
+class="popup"
+id="popup">
+
+<div class="popup-content">
+
+<div
+id="popupPair"
+class="popup-pair">
+</div>
+
+<h2 id="popupTitle"></h2>
+
+<p id="popupText"></p>
+
+<button
+class="btn btn-primary popup-btn"
+onclick="closePopup()">
+    Continue
+</button>
+
+</div>
+
+</div>
+
+<div id="dealPopup" class="deal-popup">
+
+    <button
+    class="deal-close"
+    onclick="closeDealPopup()">
+    ✕
+    </button>
+
+    <div class="deal-popup-content">
+
+    <div class="deal-badge">
+
+    <div class="deal-star"></div>
+
+    <div class="deal-star-text">
+        HOT<br>DEAL
+    </div>
+
+</div>
+
+
+    <div class="deal-info">
+
+        <h3 class="deal-title">
+            PlayStation 5
+        </h3>
+
+        <div class="deal-pricing">
+            <div class="deal-price">
+                $399
+    	    </div>
+
+    	    <div class="deal-old-price">
+        	Was <s>$450</s>
+    	    </div>
+        </div>
+
+        <p id="dealCountdown">
+            Loading...
+        </p>
+
+        <button
+        class="btn btn-primary"
+        onclick="
+        document
+        .getElementById('products')
+        .scrollIntoView({
+            behavior:'smooth'
+        });
+        ">
+            See Offer
+        </button>
+
+    </div>
+
+</div>
+</div>
+
+<script src="products.js"></script>
+
+<script>
+
+function renderProducts(){
+
+const search =
+document.getElementById("search")
+.value.toLowerCase();
+
+const category =
+document.getElementById("categoryFilter")
+.value;
+
+const rating =
+document.getElementById("ratingFilter")
+.value;
+
+const maxPrice =
+document.getElementById("maxPrice")
+.value;
+
+const sort =
+document.getElementById("sortFilter")
+.value;
+
+const grid =
+document.getElementById("productGrid");
+
+grid.innerHTML="";
+
+const filtered =
+products.filter(product=>{
+
+return (
+product.title.toLowerCase().includes(search) &&
+(!category || product.category===category) &&
+(!rating || product.rating == rating) &&
+(!maxPrice || product.price <= maxPrice)
+);
+
+});
+
+if(sort === "priceLow"){
+    filtered.sort(
+        (a,b)=>a.price-b.price
+    );
+}
+else if(sort === "priceHigh"){
+    filtered.sort(
+        (a,b)=>b.price-a.price
+    );
+}
+else if(sort === "ratingHigh"){
+    filtered.sort(
+        (a,b)=>b.rating-a.rating
+    );
+}
+else if(sort === "sale"){
+    filtered.sort(
+        (a,b)=>
+        Boolean(b.oldPrice) -
+        Boolean(a.oldPrice)
+    );
+}
+else if(sort === "name"){
+    filtered.sort(
+        (a,b)=>
+        a.title.localeCompare(
+            b.title
+        )
+    );
+}
+
+if(filtered.length===0){
+
+grid.innerHTML=
+"<div>No products found.</div>";
+
+return;
+}
+
+filtered.forEach(product=>{
+
+grid.innerHTML += `
+
+<div class="card ${
+product.oldPrice
+? 'sale-product'
+: ''
+}">
+
+<div class="product-image">
+
+    ${
+        product.oldPrice
+        ? `
+        <div class="discount-badge">
+            SALE
+        </div>
+        `
+        : ''
+    }
+
+<img
+src="${product.image}"
+alt="${product.title}"
+style="
+width:100%;
+height:100%;
+object-fit:contain;
+padding:8px;
+background:white;
+">
+
+</div>
+
+<div class="card-body">
+
+<h3>${product.title}</h3>
+
+    <div class="product-actions">
+        <div class="product-meta">
+
+        ${
+product.oldPrice ?
+
+`
+<div class="sale-price-row">
+
+    <div class="discount-price">
+        $${product.price}
+    </div>
+
+    <div class="old-price">
+        $${product.oldPrice}
+    </div>
+
+</div>
+
+`
+
+:
+`
+<div class="price">
+    $${product.price}
+</div>
+`
+}
+
+    <div class="meta-badges">
+
+    <span class="condition-rating">
+    ${'★'.repeat(product.rating) + '☆'.repeat(5-product.rating)}
+    </span>
+
+
+        ${
+            product.stock
+            ? `
+            <span class="stock-badge">
+                ${product.stock}
+            </span>
+            `
+            : ''
+        }
+
+    </div>
+</div>
+    <a
+    href="product.html?id=${product.id}"
+    class="btn btn-primary view-btn">
+        View<br>Details
+    </a>
+</div>
+
+</div>
+</div>
+`;
+
+});
+
+}
+
+document
+.getElementById("sellForm")
+.addEventListener(
+"submit",
+function(e){
+
+e.preventDefault();
+
+alert(
+"Demo submission successful. Connect a backend for production use."
+);
+
+this.reset();
+
+}
+);
+
+const memoryProducts =
+shuffle([...products])
+.slice(0,8)
+.map(product => ({
+    id:product.id,
+    image:product.image,
+    name:product.title,
+    category:product.category,
+    feature:product.memoryHint
+}));
+
+let cards=[];
+
+const imageCards=[];
+const infoCards=[];
+
+memoryProducts.forEach(product=>{
+
+imageCards.push({
+
+pair:product.id,
+
+product,
+
+content:`
+<img
+src="${product.image}"
+class="product-photo">
+`
+
+});
+
+infoCards.push({
+
+pair:product.id,
+
+product,
+
+content:`
+
+<div class="product-info-card">
+
+<h3>
+${product.name}
+</h3>
+
+<div class="product-category">
+${product.category}
+</div>
+
+<p>
+${product.feature}
+</p>
+
+</div>
+
+`
+
+});
+
+});
+
+shuffle(imageCards);
+shuffle(infoCards);
+
+cards=[
+    ...imageCards,
+    ...infoCards
+];
+
+function shuffle(array){
+
+    for(
+        let i=array.length-1;
+        i>0;
+        i--
+    ){
+
+        const j=
+        Math.floor(
+            Math.random()*(i+1)
+        );
+
+        [
+            array[i],
+            array[j]
+        ]=
+        [
+            array[j],
+            array[i]
+        ];
+
+    }
+
+    return array;
+}
+
+shuffle(cards);
+
+const grid=
+document.getElementById("grid");
+
+cards.forEach(card=>{
+
+let div=
+document.createElement("div");
+
+div.className=
+"memory-card";
+
+div.dataset.pair=
+card.pair;
+
+div.cardData=
+card;
+
+div.innerHTML=
+`
+<div class="memory-front">
+⚡
+</div>
+
+<div class="memory-back">
+
+${card.content}
+
+</div>
+`;
+
+div.addEventListener(
+"click",
+flipCard
+);
+
+grid.appendChild(div);
+
+});
+
+let first=null;
+let second=null;
+let memoryScore=0;
+let lock=false;
+
+let seconds = 0;
+let timer = null;
+let gameStarted = false;
+
+function startGame(){
+
+    document
+    .getElementById("dealPopup")
+    .style.opacity = "0";
+
+    if(gameStarted)
+    return;
+
+    gameStarted = true;
+
+    document
+    .getElementById(
+        "gameOverlay"
+    )
+    .style.display =
+    "none";
+
+    timer =
+    setInterval(()=>{
+        seconds++;
+        document
+        .getElementById("timer")
+        .innerText =
+        `Time: ${seconds}s`;
+    },1000);
+
+}
+
+function flipCard(){
+
+if(!gameStarted)
+return;
+
+if(
+this.classList.contains(
+"matched"
+)){
+    return;
+}
+
+if(lock) return;
+
+if(this===first) return;
+
+this.classList.add(
+"flipped"
+);
+
+if(!first){
+
+first=this;
+return;
+
+}
+
+second=this;
+
+lock=true;
+
+if(
+first.dataset.pair===
+second.dataset.pair
+){
+
+first.classList.add(
+"matched"
+);
+
+second.classList.add(
+"matched"
+);
+
+memoryScore++;
+
+document
+.getElementById("score")
+.innerText=
+`Pairs Found: ${memoryScore} / 8`;
+
+clearInterval(timer);
+
+showProductInfo(
+    first.cardData.product
+);
+
+first=null;
+second=null;
+lock=false;
+
+if(memoryScore===8){
+
+    clearInterval(timer);
+
+    window.gameCompleted =
+    true;
+
+}
+
+}
+else{
+
+setTimeout(()=>{
+
+first.classList.remove(
+"flipped"
+);
+
+second.classList.remove(
+"flipped"
+);
+
+first=null;
+second=null;
+lock=false;
+
+},900);
+
+}
+
+}
+
+function showProductInfo(product){
+
+    clearInterval(timer);
+
+    document
+    .getElementById(
+    "popupPair"
+    ).innerHTML =
+    `
+
+    <div class="popup-preview">
+
+        <img
+        src="${product.image}"
+        alt="${product.name}">
+
+    </div>
+
+    <div class="popup-preview-info">
+
+        <h3>
+        ${product.name}
+        </h3>
+
+        <div class="product-category">
+
+        ${product.category}
+
+        </div>
+
+        <p>
+
+        ${product.feature}
+
+        </p>
+
+    </div>
+
+    `;
+
+    document
+    .getElementById(
+    "popupTitle"
+    ).innerText =
+    `🎉 ${product.name} Discovered!`;
+
+    document
+    .getElementById(
+    "popupText"
+    ).innerHTML =
+    `
+    ✨ Nice find! This product is available
+    on ElectroMarket if you'd like to learn more.
+    `;
+
+    document
+    .getElementById(
+    "popup"
+    ).style.display =
+    "flex";
+
+}
+
+function closePopup(){
+
+    document
+    .getElementById(
+    "popup"
+    )
+    .style.display =
+    "none";
+
+    if(window.gameCompleted){
+
+        showWinScreen();
+
+        return;
+
+    }
+
+    if(
+        gameStarted &&
+        memoryScore < 8
+    ){
+
+        timer =
+        setInterval(()=>{
+
+            seconds++;
+
+            document
+            .getElementById(
+            "timer"
+            )
+            .innerText =
+            `Time: ${seconds}s`;
+
+        },1000);
+
+    }
+
+}
+
+function showWinScreen(){
+
+    document
+.getElementById("dealPopup")
+.style.opacity = "1";
+
+let medal="🥉";
+let title="Bronze";
+
+if(seconds <= 34){
+
+    medal="🥇";
+    title="Gold";
+
+}
+else if(seconds <= 47){
+
+    medal="🥈";
+    title="Silver";
+
+}
+else if(seconds <= 60){
+
+    medal="🥉";
+    title="Bronze";
+
+}
+else{
+
+    medal="🏅";
+    title="Completed";
+
+}
+document
+.getElementById(
+"winScreen"
+).innerHTML =
+`
+
+<div class="medal">
+${medal}
+</div>
+
+<h2>
+${title} Medal
+</h2>
+
+<p>
+Completed in
+${seconds}
+seconds
+</p>
+
+<button
+class="play-again"
+onclick="location.reload()">
+
+Play Again
+
+</button>
+
+`;
+
+document
+.getElementById(
+"winScreen"
+).style.display=
+"block";
+
+}
+
+function updateCountdown(){
+
+    const now = new Date();
+    const diff = deadline - now;
+
+    if(diff <= 0){
+
+        document
+        .getElementById("dealCountdown")
+        .innerText =
+        "⏰ Offer has ended";
+
+        return;
+    }
+
+    const days =
+    Math.floor(
+        diff /
+        (1000 * 60 * 60 * 24)
+    );
+
+    const hours =
+    Math.floor(
+        (
+            diff %
+            (1000 * 60 * 60 * 24)
+        ) /
+        (1000 * 60 * 60)
+    );
+
+    const minutes =
+    Math.floor(
+        (
+            diff %
+            (1000 * 60 * 60)
+        ) /
+        (1000 * 60)
+    );
+
+    document
+    .getElementById("dealCountdown")
+    .innerHTML =
+    `⏰ <strong>${days}</strong>d
+     <strong>${hours}</strong>h
+     <strong>${minutes}</strong>m left`;
+}
+
+const deadline =
+new Date("2026-10-31T00:00:00");
+
+updateCountdown();
+
+setInterval(
+    updateCountdown,
+    60000
+);
+
+function closeDealPopup(){
+
+    sessionStorage.setItem(
+        "dealClosed",
+        "true"
+    );
+
+    document
+    .getElementById(
+        "dealPopup"
+    )
+    .style.display =
+    "none";
+
+}
+
+if(
+    sessionStorage.getItem(
+        "dealClosed"
+    ) === "true"
+){
+
+    document
+    .getElementById(
+        "dealPopup"
+    )
+    .style.display =
+    "none";
+
+}
+
+renderProducts();
+</script>
+
+</body>
+</html>

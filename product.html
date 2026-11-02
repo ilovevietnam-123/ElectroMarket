@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta
+name="viewport"
+content="width=device-width,initial-scale=1">
+
+<title>ElectroMarket Product</title>
+
+<style>
+
+:root{
+    --primary:#2563eb;
+    --dark:#0f172a;
+    --text:#334155;
+    --border:#e2e8f0;
+    --bg:#f8fafc;
+    --sale:#16a34a;
+    --danger:#ef4444;
+    --radius:16px;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:
+        Segoe UI,
+        sans-serif;
+
+    background:var(--bg);
+
+    color:var(--text);
+}
+
+.container{
+    max-width:1400px;
+
+    margin:auto;
+
+    padding:30px 20px;
+}
+
+.back-link{
+    text-decoration:none;
+
+    color:var(--primary);
+
+    font-weight:700;
+}
+
+.product-layout{
+    display:grid;
+
+    grid-template-columns:
+        1fr
+        450px;
+
+    gap:40px;
+
+    margin-top:25px;
+}
+
+.card{
+    background:white;
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius);
+
+    padding:25px;
+}
+
+/* LEFT */
+
+.gallery{
+    text-align:center;
+}
+
+.gallery-main{
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    gap:15px;
+}
+
+.gallery-main img{
+    width:100%;
+    max-width:500px;
+
+    height:400px;
+
+    object-fit:contain;
+}
+
+.gallery-btn{
+    border:none;
+
+    background:var(--primary);
+
+    color:white;
+
+    width:42px;
+    height:42px;
+
+    border-radius:50%;
+
+    cursor:pointer;
+
+    font-size:1.3rem;
+}
+
+#mainImage{
+    transition:
+        opacity .25s ease,
+        transform .25s ease;
+}
+
+.image-counter{
+    margin-top:12px;
+
+    text-align:center;
+
+    color:#64748b;
+
+    font-size:.9rem;
+
+    font-weight:600;
+}
+
+.thumbnail-row{
+    display:flex;
+    gap:10px;
+
+    justify-content:center;
+
+    margin-top:15px;
+
+    flex-wrap:wrap;
+}
+
+.thumb{
+    width:65px;
+    height:65px;
+
+    object-fit:contain;
+
+    border:2px solid #e2e8f0;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.thumb:hover{
+    border-color:#2563eb;
+}
+
+.thumb.active{
+    border-color:#2563eb;
+}
+
+.section-title{
+    margin-bottom:15px;
+
+    color:var(--dark);
+}
+
+.feature-list{
+    list-style:none;
+}
+
+.feature-list li{
+    padding:8px 0;
+}
+
+.feature-list li::before{
+    content:"✓ ";
+
+    color:var(--sale);
+
+    font-weight:700;
+}
+
+/* RIGHT */
+
+#productTitle{
+    text-align:right;
+
+    font-size:2.2rem;
+
+    font-weight:900;
+
+    line-height:1.1;
+
+    margin-bottom:10px;
+}
+
+.product-description{
+    text-align:center;
+
+    margin:
+        10px 0
+        20px;
+
+    color:#64748b;
+
+    line-height:1.6;
+
+    font-size:1rem;
+}
+
+.rating{
+    text-align:center;
+
+    font-size:1.2rem;
+
+    margin-bottom:12px;
+}
+
+.price-row{
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-bottom:10px;
+
+    justify-content:flex-end;
+}
+
+.price{
+    font-size:2.8rem;
+
+    font-weight:900;
+
+    color:var(--sale);
+}
+
+.old-price{
+    text-decoration:line-through;
+
+    color:#94a3b8;
+}
+
+.discount{
+    display:inline-block;
+
+    background:#dcfce7;
+
+    color:var(--sale);
+
+    padding:4px 10px;
+
+    border-radius:999px;
+
+    font-weight:700;
+
+    margin-bottom:20px;
+}
+
+.bundle{
+    border:1px solid var(--border);
+
+    border-radius:12px;
+
+    padding:15px;
+
+    margin-bottom:12px;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.bundle h3{
+    margin-bottom:8px;
+    color:#2563eb;
+}
+
+.bundle.recommended{
+    border:2px solid var(--primary);
+    color:#16a34a;
+}
+
+.bundle-header{
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:10px;
+}
+
+.bundle:hover{
+    border-color:#2563eb;
+}
+
+.bundle input{
+    transform:scale(1.2);
+}
+
+.purchase-actions{
+    display:grid;
+
+    gap:12px;
+
+    margin:20px 0;
+}
+
+.purchase-card{
+    border:1px solid var(--border);
+
+    border-radius:12px;
+
+    padding:15px;
+
+    transition:.2s;
+
+    min-height:180px;
+
+    display:flex;
+
+    flex-direction:column;
+}
+
+.purchase-card:hover{
+    border-color:#2563eb;
+    box-shadow:
+        0 6px 15px
+        rgba(37,99,235,.12);
+}
+
+.purchase-card h3{
+
+    font-size:1.3rem;
+
+    font-weight:800;
+
+    margin-bottom:10px;
+}
+
+.purchase-card ul{
+    padding-left:18px;
+    margin-bottom:12px;
+}
+
+.purchase-card button{
+
+    width:100%;
+
+    font-size:1rem;
+
+    font-weight:800;
+
+    min-height:48px;
+
+    margin-top:auto;
+}
+
+.buy-option{
+    border-left:5px solid #2563eb;
+}
+
+.installment-option{
+    border-left:5px solid #16a34a;
+}
+
+.btn{
+    border:none;
+
+    border-radius:12px;
+
+    padding:14px;
+
+    font-size:1rem;
+
+    font-weight:700;
+
+    cursor:pointer;
+}
+
+.btn-buy{
+    background:var(--primary);
+
+    color:white;
+
+    font-size:1.05rem;
+}
+
+.btn-installments{
+    background:#dbeafe;
+    text-align:left;
+    color:#1e3a8a;
+    padding:18px;
+    font-size:1.05rem;
+}
+
+.btn small{
+    display:block;
+
+    font-size:.8rem;
+
+    font-weight:500;
+
+    margin-top:3px;
+}
+
+.specs-table{
+    width:100%;
+
+    border-collapse:collapse;
+}
+
+.specs-table td{
+    padding:10px;
+
+    border-bottom:
+        1px solid var(--border);
+}
+
+.specs-table td:first-child{
+    font-weight:700;
+
+    width:45%;
+}
+
+@media(max-width:900px){
+
+    .product-layout{
+        grid-template-columns:1fr;
+    }
+
+    .gallery-main img{
+        height:280px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<a
+href="index.html"
+class="back-link">
+← Back to Store
+</a>
+
+<div class="product-layout">
+
+    <!-- LEFT -->
+    <div>
+
+        <div class="card gallery">
+
+            <div class="gallery-main">
+
+                <button
+    		class="gallery-btn"
+    		onclick="prevImage()">
+    		◀
+    		</button>
+
+    		<img
+    		id="mainImage"
+		alt="Product Image">
+
+    		<button
+    		class="gallery-btn"
+    		onclick="nextImage()">
+    		▶
+    		</button>
+
+	</div>
+
+	<div id="imageCounter"
+	class="image-counter">
+	</div>
+
+	<div id="thumbnailRow"
+	class="thumbnail-row">
+	</div>
+
+        </div>
+
+        <div class="card" style="margin-top:20px;">
+
+            <h2 class="section-title">
+                Highlights
+            </h2>
+
+            <ul
+            id="highlights"
+            class="feature-list">
+            </ul>
+
+        </div>
+
+        <div
+        class="card"
+        style="margin-top:20px;">
+
+            <h2 class="section-title">
+                ElectroMarket Buyer Protection
+            </h2>
+
+            <ul
+            id="protection"
+            class="feature-list">
+            </ul>
+
+        </div>
+
+	<div
+	class="card"
+	style="margin-top:20px;">
+
+    	    <h2 class="section-title">
+        	About This Product
+    	    </h2>
+
+    	    <p
+    	    id="productDescriptionLong">
+    	    </p>
+
+	</div>
+
+</div>
+
+    <!-- RIGHT -->
+    <div>
+
+        <div class="card">
+
+            <h1 id="productTitle">
+            </h1>
+
+	    <p
+    	    id="productDescription"
+	    class="product-description">
+	    </p>
+
+            <div
+            class="rating"
+            id="rating">
+            </div>
+
+            <div
+            class="price-row"
+            id="priceBox">
+            </div>
+
+            <div
+            id="discountLabel">
+            </div>
+
+            <div class="bundle">
+
+    		<div class="bundle-header">
+
+        	    <h3>
+            		Standard
+        	    </h3>
+
+        	    <input
+        	    type="radio"
+        	    name="bundle"
+        	    checked>
+
+    		</div>
+
+    		<p>
+        	    Device + accessories
+        	    + buyer protection.
+    	    	</p>
+
+	    </div>
+
+            <div class="bundle recommended">
+
+    		<div class="bundle-header">
+
+        	    <h3>
+            		ElectroMarket Plus
+        	    </h3>
+
+        	    <input
+        	    type="radio"
+        	    name="bundle">
+
+    		</div>
+
+    		<p>
+        	    Extended support,
+        	    priority processing,
+        	    premium buyer protection.
+    	  	</p>
+
+	    </div>
+
+            <div class="purchase-actions">
+
+                <div class="purchase-card buy-option">
+
+    		    <h3>🛒 Buy Now</h3>
+
+    		    <ul>
+        		<li>Home delivery</li>
+        		<li>Secure checkout</li>
+        		<li>Fast processing</li>
+    		    </ul>
+
+    		    <button class="btn btn-buy">
+        		Purchase
+    		    </button>
+
+		</div>
+
+                <div class="purchase-card installment-option">
+
+    		    <h3>💳 Installment Purchase</h3>
+
+    		    <ul>
+        		<li>0% financing available</li>
+        		<li>Save up to $40</li>
+        		<li>Flexible payment plans</li>
+    	    	    </ul>
+
+    		    <button class="btn btn-installments">
+        		Choose Installments
+    		    </button>
+
+		</div>
+
+            </div>
+
+        </div>
+
+        <div
+        class="card"
+        style="margin-top:20px;">
+
+            <h2 class="section-title">
+                Specifications
+            </h2>
+
+            <table
+            class="specs-table"
+            id="specsTable">
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+<script src="products.js"></script>
+
+<script>
+
+const params =
+new URLSearchParams(
+window.location.search
+);
+
+const productId =
+parseInt(
+params.get("id")
+);
+
+const product =
+products.find(
+p =>
+p.id === productId
+);
+
+if(!product){
+
+    document.body.innerHTML =
+    "<h1>Product Not Found</h1>";
+
+    throw new Error(
+        "Invalid product ID"
+    );
+}
+
+let currentImage = 0;
+
+const images =
+product.images ||
+[
+    product.image
+];
+
+function renderImage(){
+
+    const img =
+    document.getElementById(
+        "mainImage"
+    );
+
+    img.style.opacity = "0";
+    img.style.transform =
+    "translateX(30px)";
+
+    setTimeout(()=>{
+
+    	img.src =
+    	images[currentImage];
+
+    	img.style.opacity = "1";
+    	img.style.transform =
+    	"translateX(0)";
+
+    },150);
+
+    document
+    .getElementById("imageCounter")
+    .innerText =
+    `${currentImage + 1} / ${images.length}`;
+
+    document
+    .querySelectorAll(".thumb")
+    .forEach((thumb,index)=>{
+
+        thumb.classList.toggle(
+            "active",
+            index === currentImage
+        );
+
+    });
+}
+
+function nextImage(){
+
+currentImage =
+(currentImage+1)
+%
+images.length;
+
+renderImage();
+
+}
+
+function prevImage(){
+
+currentImage =
+(
+currentImage-1+
+images.length
+)
+%
+images.length;
+
+renderImage();
+
+}
+
+document
+.getElementById(
+"productTitle"
+)
+.innerText =
+product.title;
+
+document
+.getElementById(
+"productDescription"
+)
+.innerText =
+product.description;
+
+document
+.getElementById(
+"productDescriptionLong"
+)
+.innerText =
+product.about ||
+product.description;
+
+document
+.getElementById(
+"rating"
+)
+.innerText =
+"★".repeat(
+product.rating
+)
++
+"☆".repeat(
+5-product.rating
+);
+
+if(product.oldPrice){
+
+const discount =
+Math.round(
+100 -
+(
+product.price /
+product.oldPrice
+*
+100
+)
+);
+
+document
+.getElementById(
+"priceBox"
+)
+.innerHTML =
+`
+<div class="price">
+$${product.price}
+</div>
+
+<div class="old-price">
+$${product.oldPrice}
+</div>
+`;
+
+document
+.getElementById(
+"discountLabel"
+)
+.innerHTML =
+`
+<div class="discount">
+Save ${discount}%
+</div>
+`;
+
+}
+else{
+
+document
+.getElementById(
+"priceBox"
+)
+.innerHTML =
+`
+<div class="price">
+$${product.price}
+</div>
+`;
+
+}
+
+(product.highlights||[])
+.forEach(item=>{
+
+document
+.getElementById(
+"highlights"
+)
+.innerHTML +=
+`
+<li>${item}</li>
+`;
+
+});
+
+(product.protection||[])
+.forEach(item=>{
+
+document
+.getElementById(
+"protection"
+)
+.innerHTML +=
+`
+<li>${item}</li>
+`;
+
+});
+
+const specs =
+product.specifications ||
+{};
+
+for(const key in specs){
+
+document
+.getElementById(
+"specsTable"
+)
+.innerHTML +=
+`
+<tr>
+
+<td>
+${
+    key
+    .replace(
+        "designedIn",
+        "Designed In"
+    )
+    .replace(
+        "madeIn",
+        "Made In"
+    )
+}
+</td>
+
+<td>
+${specs[key]}
+</td>
+
+</tr>
+`;
+
+}
+
+function renderThumbnails(){
+
+    const row =
+    document.getElementById(
+        "thumbnailRow"
+    );
+
+    row.innerHTML = "";
+
+    images.forEach(
+        (img,index)=>{
+
+        row.innerHTML += `
+        <img
+        src="${img}"
+        class="thumb"
+        onclick="
+        currentImage=${index};
+        renderImage();
+        ">
+        `;
+
+    });
+
+}
+
+renderImage();
+renderThumbnails();
+
+</script>
+
+</body>
+</html>

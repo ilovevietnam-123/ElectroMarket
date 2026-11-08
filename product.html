@@ -38,7 +38,7 @@ body{
 }
 
 .container{
-    max-width:1400px;
+    max-width:1200px;
 
     margin:auto;
 
@@ -57,10 +57,10 @@ body{
     display:grid;
 
     grid-template-columns:
-        1fr
-        450px;
+        60%
+        40%;
 
-    gap:40px;
+    gap:30px;
 
     margin-top:25px;
 }
@@ -118,8 +118,8 @@ body{
 
 #mainImage{
     transition:
-        opacity .25s ease,
-        transform .25s ease;
+        opacity .5s ease,
+        transform .5s cubic-bezier(.22,.61,.36,1);
 }
 
 .image-counter{
@@ -157,15 +157,22 @@ body{
 
     cursor:pointer;
 
-    transition:.2s;
+    transition:
+	border-color .2s ease,
+	transform .2s ease;
 }
 
 .thumb:hover{
     border-color:#2563eb;
+    transform:scale(1.05);
 }
 
 .thumb.active{
     border-color:#2563eb;
+    transform:scale(1.08);
+    box-shadow:
+        0 0 0 3px
+        rgba(37,99,235,.2);
 }
 
 .section-title{
@@ -235,7 +242,7 @@ body{
 
     margin-bottom:10px;
 
-    justify-content:flex-end;
+    justify-content:center;
 }
 
 .price{
@@ -343,16 +350,20 @@ body{
 
 .purchase-card h3{
 
-    font-size:1.3rem;
+    font-size:1.5rem;
 
-    font-weight:800;
+    font-weight:900;
 
-    margin-bottom:10px;
+    margin-bottom:12px;
 }
 
 .purchase-card ul{
     padding-left:18px;
     margin-bottom:12px;
+}
+
+.purchase-card li{
+    margin-bottom:8px;
 }
 
 .purchase-card button{
@@ -400,10 +411,13 @@ body{
 
 .btn-installments{
     background:#dbeafe;
-    text-align:left;
+    text-align:center;
     color:#1e3a8a;
     padding:18px;
     font-size:1.05rem;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 
 .btn small{
@@ -701,6 +715,7 @@ if(!product){
 }
 
 let currentImage = 0;
+let slideDirection = 1;
 
 const images =
 product.images ||
@@ -715,25 +730,56 @@ function renderImage(){
         "mainImage"
     );
 
+    /* OLD IMAGE LEAVES */
+
     img.style.opacity = "0";
+
     img.style.transform =
-    "translateX(30px)";
+    `translateX(${
+        slideDirection * -60
+    }px)`;
 
     setTimeout(()=>{
 
-    	img.src =
-    	images[currentImage];
+        /* CHANGE IMAGE */
 
-    	img.style.opacity = "1";
-    	img.style.transform =
-    	"translateX(0)";
+        img.src =
+        images[currentImage];
 
-    },150);
+        /* NEW IMAGE STARTS OFFSCREEN */
+
+        img.style.transition =
+        "none";
+
+        img.style.transform =
+        `translateX(${
+            slideDirection * 60
+        }px)`;
+
+        img.style.opacity = "0";
+
+        /* FORCE REPAINT */
+
+        void img.offsetWidth;
+
+        /* RESTORE TRANSITION */
+
+        img.style.transition =
+        "opacity .5s ease, transform .5s cubic-bezier(.22,.61,.36,1)";
+
+        img.style.opacity = "1";
+
+        img.style.transform =
+        "translateX(0)";
+
+    },250);
 
     document
-    .getElementById("imageCounter")
+    .getElementById(
+        "imageCounter"
+    )
     .innerText =
-    `${currentImage + 1} / ${images.length}`;
+    `${currentImage+1} / ${images.length}`;
 
     document
     .querySelectorAll(".thumb")
@@ -745,30 +791,35 @@ function renderImage(){
         );
 
     });
+
 }
 
 function nextImage(){
 
-currentImage =
-(currentImage+1)
-%
-images.length;
+    slideDirection = 1;
 
-renderImage();
+    currentImage =
+    (currentImage + 1)
+    %
+    images.length;
+
+    renderImage();
 
 }
 
 function prevImage(){
 
-currentImage =
-(
-currentImage-1+
-images.length
-)
-%
-images.length;
+    slideDirection = -1;
 
-renderImage();
+    currentImage =
+    (
+        currentImage - 1 +
+        images.length
+    )
+    %
+    images.length;
+
+    renderImage();
 
 }
 

@@ -430,7 +430,7 @@ images:[
 "images/surface/surface.jpg",
 "images/surface/surface1.png",
 "images/surface/surface2.png",
-"images/surface/surface3.png",
+"images/surface/surface3.png"
 ],
 highlights:[
     "Copilot+ AI-powered experiences",
@@ -473,7 +473,7 @@ images:[
 "images/xbox/xbox.png",
 "images/xbox/xbox1.png",
 "images/xbox/xbox2.png",
-"images/xbox/xbox3.png",
+"images/xbox/xbox3.png"
 ],
 highlights:[
     "Powerful 4K gaming performance",
